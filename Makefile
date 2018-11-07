@@ -20,4 +20,4 @@ test:
 
 .PHONY: docker
 docker:
-	@docker build . -t alekssaul/github-create-repository:v1.0
+	@docker build . -t alekssaul/github-create-repository:v0.2.1

@@ -20,12 +20,18 @@ type RepositoryRequest struct {
 
 func main() {
 	reponame := flag.String("name", "name", "Name of Repo to create")
+	repodescription := flag.String("description", "description", "Description of Repo to create")
 	githubtoken := os.Getenv("GITHUB_TOKEN")
+
 	flag.Parse()
 
 	if *reponame == "" {
 		fmt.Printf("Please enter name ie:\"-name=newrepo\"\n")
 		os.Exit(1)
+	}
+	rd := *repodescription
+	if rd == "" {
+		rd = string("New Repository default description")
 	}
 
 	if githubtoken == "" {
@@ -42,8 +48,9 @@ func main() {
 	GithubClient := github.NewClient(tc)
 	autoinit := true
 	newrepo := github.Repository{
-		Name:     reponame,
-		AutoInit: &autoinit,
+		Name:        reponame,
+		AutoInit:    &autoinit,
+		Description: &rd,
 	}
 
 	log.Printf("Creating a repository %v\n", newrepo)
